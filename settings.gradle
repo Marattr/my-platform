@@ -1,0 +1,6 @@
+rootProject.name = 'my-platform'
+
+include 'config-server'
+include 'currency-service'
+include 'customer-service'
+include 'api-gateway'

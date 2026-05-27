@@ -1,0 +1,16 @@
+app:
+  greeting: "Merhaba Config Server'dan!"
+
+server:
+  port: 8082
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/murat
+    username: murat
+    password: ${DB_PASSWORD:murat}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      max-lifetime: 1800000
+      keepalive-time: 60000

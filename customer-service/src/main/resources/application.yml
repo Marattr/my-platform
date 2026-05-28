@@ -2,7 +2,7 @@ spring:
   application:
     name: customer-service
   config:
-    import: configserver:http://localhost:8888
+    import: configserver:${CONFIG_SERVER_URL:http://localhost:8888}
   cloud:
     openfeign:
       circuitbreaker:
@@ -26,7 +26,7 @@ management:
       enabled: true
 
 currency-service:
-  url: http://localhost:8081
+  url: http://host.docker.internal:8081
 
 resilience4j:
   circuitbreaker:

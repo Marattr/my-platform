@@ -8,17 +8,10 @@ spec:
     - host: ihs.local
       http:
         paths:
-          - path: /api/currency
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: currency-service
+                name: api-gateway
                 port:
-                  number: 8081
-          - path: /api/customer
-            pathType: Prefix
-            backend:
-              service:
-                name: customer-service
-                port:
-                  number: 8082
+                  number: 8080

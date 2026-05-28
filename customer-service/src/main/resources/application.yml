@@ -26,7 +26,7 @@ management:
       enabled: true
 
 currency-service:
-  url: http://host.docker.internal:8081
+  url: http://currency-service:8081
 
 resilience4j:
   circuitbreaker:

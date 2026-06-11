@@ -3,6 +3,10 @@ spring:
     name: currency-service
   config:
     import: configserver:${CONFIG_SERVER_URL:http://localhost:8888}
+  cloud:
+    config:
+      username: ${CONFIG_SERVER_USER:ihs}
+      password: ${CONFIG_SERVER_PASS:ihs123!}
 
 management:
   endpoints:

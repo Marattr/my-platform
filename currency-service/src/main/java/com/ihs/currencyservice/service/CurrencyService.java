@@ -16,6 +16,8 @@ public class CurrencyService {
     }
 
     public BigDecimal getCurrency(String currency){
+        System.out.println(currency);
+        System.out.println(currencyRepo.getCurrency(currency).getValue());
         return currencyRepo.getCurrency(currency).getValue();
     }
 }

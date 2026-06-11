@@ -1,14 +1,14 @@
 package com.ihs.customerservice.controller;
 
-import com.ihs.customerservice.config.ConfigProperties;
+import com.ihs.common.config.ConfigProperties;
+import com.ihs.customerservice.domain.Customer;
 import com.ihs.customerservice.service.CustomerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/customer")
@@ -23,7 +23,26 @@ public class CustomerController {
         return configProperties.getGreeting();
     }
 
+    @GetMapping("/{name}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')")
+    public Customer getCustomer(@PathVariable String name) {
+        return customerService.getCustomer(name);
+    }
+
+    @GetMapping("/internal/{name}")
+    @PreAuthorize("hasAnyRole('INTERNAL')")
+    public Customer getCustomerInternal(@PathVariable String name) {
+        return customerService.getCustomer(name);
+    }
+
+    @GetMapping("/internal/roles/{customerId}")
+    @PreAuthorize("hasAnyRole('INTERNAL')")
+    public List<String> getCustomerRoles(@PathVariable Long customerId) {
+        return customerService.getCustomerRoles(customerId);
+    }
+
     @GetMapping("/feignTest/{currency}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public BigDecimal feignTest(@PathVariable String currency) {
         return customerService.getTest(currency);
     }

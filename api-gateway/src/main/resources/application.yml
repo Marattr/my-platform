@@ -1,9 +1,16 @@
 server:
   port: 8080
 
+app:
+  x-api-key: "X_API_KEY"
+
 spring:
   application:
     name: api-gateway
+  security:
+    jwt:
+      secret: ${JWT_SECRET:I2locy5jb20udHIhaWhzY29tdHItc2VjcmV0LWtleSM=}
+      #secret #ihs.com.tr!ihscomtr-secret-key#
   cloud:
     gateway:
       routes:
@@ -15,6 +22,19 @@ spring:
           uri: ${CUSTOMER_SERVICE_URL:http://localhost:8082}
           predicates:
             - Path=/api/customer/**
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/auth/**
+        - id: customer-product-service
+          uri: ${CUSTOMER_PRODUCT_SERVICE_URL:http://localhost:8084}
+          predicates:
+            - Path=/api/customer-product/**
+        - id: order-service
+          uri: ${ORDER_SERVICE_URL:http://localhost:8085}
+          predicates:
+            - Path=/api/order/**
+
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
     config:

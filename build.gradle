@@ -22,6 +22,11 @@ subprojects {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    configure(subprojects.findAll { it.name != 'common' }) {
+        apply plugin: 'org.springframework.boot'
+        apply plugin: 'io.spring.dependency-management'
+    }
+
     dependencyManagement {
         imports {
             mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2023.0.3'

@@ -1,4 +1,4 @@
-package com.ihs.customerservice.client;
+package com.ihs.customerservice.feign;
 
 import org.springframework.stereotype.Component;
 

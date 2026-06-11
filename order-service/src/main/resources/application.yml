@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: order-service
+  config:
+    import: configserver:${CONFIG_SERVER_URL:http://localhost:8888}
+  cloud:
+    config:
+      username: ${CONFIG_SERVER_USER:ihs}
+      password: ${CONFIG_SERVER_PASS:ihs123!}
+  temporal:
+    connection:
+      target: ${TEMPORAL_TARGET:127.0.0.1:7233}
+    namespace: ${TEMPORAL_NAMESPACE:default}
+    workers-auto-discovery:
+      workflow-packages:
+        - com.ihs.orderservice
+
+server:
+  port: 8085
+
+app:
+  x-api-key: "X_API_KEY"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, info

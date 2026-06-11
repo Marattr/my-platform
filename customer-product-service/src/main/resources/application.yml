@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: customer-product-service
+  config:
+    import: configserver:${CONFIG_SERVER_URL:http://localhost:8888}
+  cloud:
+    config:
+      username: ${CONFIG_SERVER_USER:ihs}
+      password: ${CONFIG_SERVER_PASS:ihs123!}
+    openfeign:
+      circuitbreaker:
+        enabled: false
+      okhttp:
+        enabled: false
+      client:
+        config:
+          default:
+            connectTimeout: 3000
+            readTimeout: 5000
+            loggerLevel: basic
+  temporal:
+    connection:
+      target: ${TEMPORAL_TARGET:127.0.0.1:7233}
+    namespace: ${TEMPORAL_NAMESPACE:default}
+    workers-auto-discovery:
+      workflow-packages:
+        - com.ihs.customerservice
+
+server:
+  port: 8084
+
+app:
+  x-api-key: "X_API_KEY"
+
+saga-service:
+  url: http://localhost:8085
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, info, circuitbreakers, circuitbreakerevents
+  health:
+    circuitbreakers:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      SagaFeignClient:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        registerHealthIndicator: true
+  timelimiter:
+    instances:
+      SagaFeignClient:
+        timeoutDuration: 4s

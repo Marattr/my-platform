@@ -1,8 +1,9 @@
 package com.ihs.currencyservice.controller;
 
-import com.ihs.currencyservice.config.ConfigProperties;
+import com.ihs.common.config.ConfigProperties;
 import com.ihs.currencyservice.service.CurrencyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class CurrencyController {
     }
 
     @GetMapping("/{currency}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public BigDecimal getCurrency(@PathVariable String currency){
         return currencyService.getCurrency(currency);
     }

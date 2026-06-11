@@ -4,3 +4,8 @@ include 'config-server'
 include 'currency-service'
 include 'customer-service'
 include 'api-gateway'
+include 'auth-service'
+include 'order-service'
+include 'customer-product-service'
+
+include 'common'

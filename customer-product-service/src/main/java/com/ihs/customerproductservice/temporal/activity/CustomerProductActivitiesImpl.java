@@ -13,7 +13,7 @@ public class CustomerProductActivitiesImpl implements CustomerProductActivities 
     @Override
     public void saveCustomerProduct(String orderId, Long customerId) {
         log.info("saveCustomerProduct");
-        throw new RuntimeException("cust err");
+        /*throw new RuntimeException("cust err");*/
     }
 
     @Override
